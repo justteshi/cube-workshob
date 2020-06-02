@@ -12,7 +12,7 @@ class Cube {
     }
 
     //save Cube
-    save(){
+    save(callback){
         
         //TODO validation
 
@@ -24,7 +24,7 @@ class Cube {
             difficulty: this.difficulty
 
         }
-        saveCube(newCube)
+        saveCube(newCube, callback)
     }
 }
 
