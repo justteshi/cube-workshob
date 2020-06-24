@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 
-
 const CubeSchema = new mongoose.Schema({
     name: {
         type: String,

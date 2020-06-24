@@ -3,14 +3,12 @@ const Cube = require('../models/cube')
 const getAllCubes = async () => {
 
     const cubes = await Cube.find().lean()
-    //console.log('Cubes', cubes)
     return cubes
 }
 
 const getCube = async (id) => {
 
     const cube = await Cube.findById(id).lean()
-    //console.log(cube)
     return cube
 }
 

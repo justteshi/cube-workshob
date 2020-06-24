@@ -14,7 +14,6 @@ const getAccessory = async (id) => {
     return accessory
 }
 
-
 module.exports = {
     getAllAccessories,
     getAccessory,

@@ -50,15 +50,13 @@ const verifyUser = async (req, res) => {
 
     const status = await bcrypt.compare(password, user.password)
 
-
     const token = generateToken({ 
         userID: user._id,
         ussername: user.username
     })
 
     res.cookie('authId', token)
-
-   return status
+    return status
 }
 
 const authAccess = (req, res, next) => {
@@ -72,7 +70,6 @@ const authAccess = (req, res, next) => {
     try {
         jwt.verify(token, config.privateKey)
         next()
-
     }
     catch(e) {
         return res.redirect('/')
@@ -93,7 +90,6 @@ const authAccessJSON = (req, res, next) => {
     try {
         jwt.verify(token, config.privateKey)
         next()
-
     }
     catch(e) {
         return res.json({
@@ -112,7 +108,6 @@ const guestAccess = (req, res, next) => {
         return res.redirect('/')
     }
     next()
-
 }
 
 const getUserStatus = (req, res, next) => {
@@ -130,7 +125,6 @@ const getUserStatus = (req, res, next) => {
     catch(e) {
         req.isLoggedIn = false
     }
-
     next()
 }
 
