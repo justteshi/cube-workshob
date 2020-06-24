@@ -3,15 +3,17 @@ const express = require('express')
 const router = express.Router()
 const { getAllAccessories } = require('../controllers/accessories')
 const Accessory = require('../models/accessory')
-const { getAllCubes, getCube, updateCube, getCubeWithAccessories } = require('../controllers/cubes')
+const { getCube, updateCube } = require('../controllers/cubes')
+const { authAccess, getUserStatus } = require('../controllers/user')
 
-router.get('/create/accessory', (req, res) => {
+router.get('/create/accessory', authAccess, getUserStatus, (req, res) => {
     res.render('createAccessory',{
-        title: 'Create accessory'
+        title: 'Create accessory',
+        isLoggedIn: req.isLoggedIn
     })
 })
 
-router.post('/create/accessory', async (req, res) => {
+router.post('/create/accessory', authAccess, async (req, res) => {
     const {
         name,
         description,
@@ -27,7 +29,7 @@ router.post('/create/accessory', async (req, res) => {
     await accessory.save((err) => {
         if (err) {
             console.error(err)
-            res.redirect('/create')
+            res.redirect('/create/accessory')
         }
         else{
             res.redirect('/')
@@ -37,7 +39,7 @@ router.post('/create/accessory', async (req, res) => {
 })
 
 
-router.get('/attach/accessory/:id', async (req, res) => {
+router.get('/attach/accessory/:id', authAccess, getUserStatus, async (req, res) => {
     const cube = await getCube(req.params.id)
     const accessories = await getAllAccessories()
     const canAttachAccessory = cube.accessories.length !== accessories.length && accessories.length > 0
@@ -46,11 +48,12 @@ router.get('/attach/accessory/:id', async (req, res) => {
         title: 'Attach accessory',
         ...cube,
         accessories,
-        canAttachAccessory
+        canAttachAccessory,
+        isLoggedIn: req.isLoggedIn
     })
 })
 
-router.post('/attach/accessory/:id', async (req, res) => {
+router.post('/attach/accessory/:id', authAccess, async (req, res) => {
     const {
         accessory
     } = req.body

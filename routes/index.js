@@ -1,26 +1,29 @@
 // TODO: Require Controllers...
 
 const { Router } = require('express')
-const { getAllCubes, getCube, updateCube, getCubeWithAccessories } = require('../controllers/cubes')
+const { getAllCubes } = require('../controllers/cubes')
+const { getUserStatus } = require('../controllers/user')
 
 const router = Router()
 
 
-router.get('/', async (req,res) => {
+router.get('/', getUserStatus, async (req, res) => {
     const cubes = await getAllCubes()
     res.render('index', {
         title: 'Cube workshop',
-        cubes
+        cubes,
+        isLoggedIn: req.isLoggedIn
     })
 })
 
-router.get('/about',(req,res) => {
+router.get('/about', getUserStatus, (req, res) => {
     res.render('about', {
-        title: 'About Workshop'
+        title: 'About Workshop',
+        isLoggedIn: req.isLoggedIn
     })
 })
 
-    // Accessory Routes
+   
 
 
 
