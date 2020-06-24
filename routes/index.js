@@ -23,7 +23,10 @@ router.get('/about', getUserStatus, (req, res) => {
     })
 })
 
-   
+router.get('/logout', (req, res) => {
+    res.clearCookie('authId')
+    res.redirect('/')
+})   
 
 
 
