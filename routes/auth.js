@@ -21,8 +21,9 @@ router.post('/signup', async (req, res) => {
         res.redirect('/')
     }
 
-    res.redirect('/')
-
+    else{
+        res.redirect('/')
+    }
 })
 
 router.post('/login', async (req, res) => {
@@ -32,8 +33,9 @@ router.post('/login', async (req, res) => {
     if(status){
         res.redirect('/')
     }
-
-    res.redirect('/')
+    else{
+        res.redirect('/')
+    }
 
 })
 
